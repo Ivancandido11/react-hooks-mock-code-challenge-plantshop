@@ -1,7 +1,7 @@
 import React from "react";
 import PlantCard from "./PlantCard";
 
-function PlantList({ onPriceChangeSubmit, plantArray }) {
+function PlantList({ onDeleteClick, onPriceChangeSubmit, plantArray }) {
   return (
     <ul className="cards">{
       plantArray.map(plant => 
@@ -10,6 +10,7 @@ function PlantList({ onPriceChangeSubmit, plantArray }) {
           image={plant.image}
           key={plant.id}
           name={plant.name}
+          onDeleteClick={onDeleteClick}
           onPriceChangeSubmit={onPriceChangeSubmit}
           price={plant.price}
         />

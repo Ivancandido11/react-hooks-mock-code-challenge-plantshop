@@ -3,12 +3,13 @@ import NewPlantForm from "./NewPlantForm";
 import PlantList from "./PlantList";
 import Search from "./Search";
 
-function PlantPage({ plantArray, onNewPlantSubmit, onPlantSearch, onPriceChangeSubmit }) {
+function PlantPage({ plantArray, onDeleteClick, onNewPlantSubmit, onPlantSearch, onPriceChangeSubmit }) {
   return (
     <main>
       <NewPlantForm onNewPlantSubmit={onNewPlantSubmit} />
       <Search onPlantSearch={onPlantSearch} />
-      <PlantList 
+      <PlantList
+        onDeleteClick={onDeleteClick}
         onPriceChangeSubmit={onPriceChangeSubmit}
         plantArray={plantArray} 
       />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PlantCard({ id, image, name, onPriceChangeSubmit, price }) {
+function PlantCard({ id, image, name, onDeleteClick, onPriceChangeSubmit, price }) {
   const [stock, setStock] = useState(true)
   const [isClicked, setIsClicked] = useState(false)
   const [newPrice, setNewPrice] = useState("")
@@ -20,6 +20,9 @@ function PlantCard({ id, image, name, onPriceChangeSubmit, price }) {
   const handlePriceChange = (e) => {
     setNewPrice(parseFloat(e.target.value))
   }
+  const handleDelete = () => {
+    onDeleteClick(id)
+  }
 
   return (
     <li className="card">
@@ -35,6 +38,7 @@ function PlantCard({ id, image, name, onPriceChangeSubmit, price }) {
         <button>Out of Stock</button>
       )}
       <button onClick={handlePriceClick} >Adjust Price</button>
+      <button onClick={handleDelete} >Delete</button>
       <form onSubmit={handleSubmit} >
         {isClicked ?
           <>

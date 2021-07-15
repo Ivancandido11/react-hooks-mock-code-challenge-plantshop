@@ -46,6 +46,16 @@ function App() {
         setPlantArray(updatedPlants)
       })
   }
+  const handleDeleteClick = (id) => {
+    const configObj = {
+      method: "DELETE"
+    }
+    fetch(`${API}${id}`, configObj)
+      .then(() => {
+        const updatedPlants = plantArray.filter(plant => plant.id !== id)
+        setPlantArray(updatedPlants)
+      })
+  }
   const handlePlantSearchChange = (search) => {
     setSearch(search)
   }
@@ -59,6 +69,7 @@ function App() {
       <Header />
       <PlantPage 
         plantArray={plantsToDisplay}
+        onDeleteClick={handleDeleteClick}
         onNewPlantSubmit={handleNewPlantSubmit}
         onPlantSearch={handlePlantSearchChange}
         onPriceChangeSubmit={handlePriceChangeSubmit}
