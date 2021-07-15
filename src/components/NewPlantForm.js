@@ -17,7 +17,11 @@ function NewPlantForm({ onNewPlantSubmit }) {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    onNewPlantSubmit(newPlant)
+    onNewPlantSubmit({
+      name: newPlant.name,
+      image: newPlant.image,
+      price: parseFloat(newPlant.price)
+    })
     setNewPlant({
       name: "",
       image: "",

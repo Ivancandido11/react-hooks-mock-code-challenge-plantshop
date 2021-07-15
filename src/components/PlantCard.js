@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 
-function PlantCard({ image, name, price }) {
+function PlantCard({ id, image, name, onPriceChangeSubmit, price }) {
   const [stock, setStock] = useState(true)
+  const [isClicked, setIsClicked] = useState(false)
+  const [newPrice, setNewPrice] = useState("")
 
   const handleButtonClick = () => {
-    setStock(stock => !stock)
+    setStock(false)
+  }
+  const handlePriceClick = (e) => {
+    e.preventDefault()
+    setIsClicked(isClicked => !isClicked)
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onPriceChangeSubmit(newPrice, id)
+    setNewPrice("")
+  }
+  const handlePriceChange = (e) => {
+    setNewPrice(parseFloat(e.target.value))
   }
 
   return (
@@ -18,10 +32,23 @@ function PlantCard({ image, name, price }) {
           onClick={handleButtonClick}
         >In Stock</button>
       ) : (
-        <button
-          onClick={handleButtonClick}
-        >Out of Stock</button>
+        <button>Out of Stock</button>
       )}
+      <button onClick={handlePriceClick} >Adjust Price</button>
+      <form onSubmit={handleSubmit} >
+        {isClicked ?
+          <>
+            <input 
+              name="price"
+              onChange={handlePriceChange}
+              placeholder="New Price"
+              step="0.01"
+              type="number"
+              value={newPrice}
+            /> <button type="submit">Change Price</button>
+          </> : null
+        }
+      </form>
     </li>
   );
 }

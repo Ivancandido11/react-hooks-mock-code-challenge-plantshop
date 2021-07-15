@@ -1,14 +1,16 @@
 import React from "react";
 import PlantCard from "./PlantCard";
 
-function PlantList({ plantArray }) {
+function PlantList({ onPriceChangeSubmit, plantArray }) {
   return (
     <ul className="cards">{
       plantArray.map(plant => 
-        <PlantCard 
+        <PlantCard
+          id={plant.id}
           image={plant.image}
           key={plant.id}
           name={plant.name}
+          onPriceChangeSubmit={onPriceChangeSubmit}
           price={plant.price}
         />
       )

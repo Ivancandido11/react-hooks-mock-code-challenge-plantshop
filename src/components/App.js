@@ -5,7 +5,7 @@ import PlantPage from "./PlantPage";
 function App() {
   const [plantArray, setPlantArray] = useState([])
   const [search, setSearch] = useState("")
-  const API = "http://localhost:6001/plants"
+  const API = "http://localhost:6001/plants/"
 
   useEffect(() => {
     fetch(API)
@@ -25,6 +25,27 @@ function App() {
       .then(r => r.json())
       .then(data => setPlantArray([...plantArray, data]))
   }
+  const handlePriceChangeSubmit = (newPrice, id) => {
+    const newPriceObj = {
+      price: newPrice
+    }
+    const configObj = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newPriceObj)
+    }
+    fetch(`${API}${id}`, configObj)
+      .then(r => r.json())
+      .then(data => {
+        const updatedPlants = plantArray.map(plant => {
+          if(plant.id === data.id) return data
+          else return plant
+        })
+        setPlantArray(updatedPlants)
+      })
+  }
   const handlePlantSearchChange = (search) => {
     setSearch(search)
   }
@@ -40,6 +61,7 @@ function App() {
         plantArray={plantsToDisplay}
         onNewPlantSubmit={handleNewPlantSubmit}
         onPlantSearch={handlePlantSearchChange}
+        onPriceChangeSubmit={handlePriceChangeSubmit}
       />
     </div>
   );
